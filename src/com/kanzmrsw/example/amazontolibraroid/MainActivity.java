@@ -15,7 +15,6 @@ import android.widget.TextView;
 public class MainActivity extends Activity {
 	String url = "";
 	String isbn = "";
-	//test of commit from egit
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
