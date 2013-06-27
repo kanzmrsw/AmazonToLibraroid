@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
@@ -27,7 +28,7 @@ public class MainActivity extends Activity {
 			isbn = mat.group(0);
 		}
 		
-		if (!(isbn.equals("") || isbn.equals(null))) {
+		if (!TextUtils.isEmpty(isbn)) {
 			Intent intSend = new Intent();
 			intSend.setAction(Intent.ACTION_SEARCH);
 			intSend.putExtra("query", isbn);
