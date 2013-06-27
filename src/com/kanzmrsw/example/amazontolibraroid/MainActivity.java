@@ -6,11 +6,6 @@ import java.util.regex.Pattern;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.TextView;
 
 public class MainActivity extends Activity {
 	String url = "";
@@ -19,12 +14,14 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
 
-		TextView tvUrl = (TextView) findViewById(R.id.tvUrl);
-		TextView tvIsbn = (TextView) findViewById(R.id.tvIsbn);
+		Intent intentReceive = getIntent();
 
-		url = getIntent().getDataString();
+		if (intentReceive == null) {
+			finish();
+		}
+
+		url = intentReceive.getDataString();
 
 		Pattern pat = null;
 		Matcher mat;
@@ -33,30 +30,14 @@ public class MainActivity extends Activity {
 		mat = pat.matcher(url);
 		if (mat.find()) {
 			isbn = mat.group(0);
+		} else {
+			finish();
 		}
 
-		tvUrl.setText(url);
-		tvIsbn.setText(isbn);
-
-		Button btnSend = (Button) findViewById(R.id.btnSend);
-		btnSend.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View paramView) {
-				Intent intSend = new Intent();
-				intSend.setAction(Intent.ACTION_SEARCH);
-				intSend.putExtra("query", isbn);
-				intSend.setPackage("yanzm.products.libraroid");
-				startActivity(intSend);
-			}
-		});
+		Intent intSend = new Intent();
+		intSend.setAction(Intent.ACTION_SEARCH);
+		intSend.putExtra("query", isbn);
+		intSend.setPackage("yanzm.products.libraroid");
+		startActivity(intSend);
 	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
 }
