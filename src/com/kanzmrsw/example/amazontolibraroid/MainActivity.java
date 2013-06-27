@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	String url = "";
@@ -15,13 +16,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		Intent intentReceive = getIntent();
-
-		if (intentReceive == null) {
-			finish();
-		}
-
-		url = intentReceive.getDataString();
+		url = getIntent().getDataString();
 
 		Pattern pat = null;
 		Matcher mat;
@@ -30,14 +25,17 @@ public class MainActivity extends Activity {
 		mat = pat.matcher(url);
 		if (mat.find()) {
 			isbn = mat.group(0);
-		} else {
-			finish();
 		}
-
-		Intent intSend = new Intent();
-		intSend.setAction(Intent.ACTION_SEARCH);
-		intSend.putExtra("query", isbn);
-		intSend.setPackage("yanzm.products.libraroid");
-		startActivity(intSend);
+		
+		if (!(isbn.equals("") || isbn.equals(null))) {
+			Intent intSend = new Intent();
+			intSend.setAction(Intent.ACTION_SEARCH);
+			intSend.putExtra("query", isbn);
+			intSend.setPackage("yanzm.products.libraroid");
+			startActivity(intSend);
+		} else {
+			Toast.makeText(getApplicationContext(), "ISBN is empty or null", Toast.LENGTH_SHORT).show();
+		}
+		finish();
 	}
 }
