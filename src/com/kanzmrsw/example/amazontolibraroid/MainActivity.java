@@ -15,6 +15,7 @@ import android.widget.TextView;
 public class MainActivity extends Activity {
 	String url = "";
 	String isbn = "";
+	//test of commit from egit
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +26,11 @@ public class MainActivity extends Activity {
 		TextView tvIsbn = (TextView) findViewById(R.id.tvIsbn);
 
 		url = getIntent().getDataString();
-		
+
 		Pattern pat = null;
 		Matcher mat;
-		
-		pat	= Pattern.compile("\\d{9}[\\d|X]");
+
+		pat = Pattern.compile("\\d{9}[\\d|X]");
 		mat = pat.matcher(url);
 		if (mat.find()) {
 			isbn = mat.group(0);
