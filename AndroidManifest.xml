@@ -30,6 +30,10 @@
                     android:host="www.amazon.co.jp"
                     android:pathPattern="/gp/aw/d\\.html.*"
                     android:scheme="http" />
+                <data
+                    android:host="books.rakuten.co.jp"
+                    android:pathPattern="/rb/.*978.*"
+                    android:scheme="http" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
