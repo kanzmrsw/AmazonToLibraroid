@@ -22,12 +22,12 @@ public class MainActivity extends Activity {
 		Pattern pat = null;
 		Matcher mat;
 
-		pat = Pattern.compile("\\d{9}[\\d|X]");
+		pat = Pattern.compile("(97(8|9))?\\d{9}(\\d|X)");
 		mat = pat.matcher(url);
 		if (mat.find()) {
 			isbn = mat.group(0);
 		}
-		
+
 		if (!TextUtils.isEmpty(isbn)) {
 			Intent intSend = new Intent();
 			intSend.setAction(Intent.ACTION_SEARCH);
@@ -35,7 +35,8 @@ public class MainActivity extends Activity {
 			intSend.setPackage("yanzm.products.libraroid");
 			startActivity(intSend);
 		} else {
-			Toast.makeText(getApplicationContext(), "ISBN is empty or null", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), "ISBN is empty or null",
+					Toast.LENGTH_SHORT).show();
 		}
 		finish();
 	}
